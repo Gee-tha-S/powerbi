@@ -31,8 +31,15 @@ jobs:
           git config --global user.name 'Gee-tha-S'
           git config --global user.email 'github-actions[bot]@users.geethasrinivasan2000@gmail.com'
           git add code-scanning.csv
-          git commit -m 'Add generated code-scanning-alerts.csv'
+          git commit -m 'Add generated code-scanning.csv'
           git push
         env:
           TOKEN: ${{ secrets.TOKEN}}
+      - name: Update Power BI Dataset
+        run: |
+               curl -X POST \
+               -H "Content-Type: application/json" \
+               -H "Authorization: Bearer ${{ secrets.POWER_BI_TOKEN }}" \
+               -d '{ "update": "parameters" }' \
+https://api.powerbi.com/v1.0/myorg/groups/GROUP_ID/datasets/DATASET_ID/refreshes
       
