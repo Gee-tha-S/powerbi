@@ -35,11 +35,4 @@ jobs:
           git push
         env:
           TOKEN: ${{ secrets.TOKEN}}
-      - name: Update Power BI Dataset
-        run: |
-               curl -X POST \
-               -H "Content-Type: application/json" \
-               -H "Authorization: Bearer ${{ secrets.POWER_BI_TOKEN }}" \
-               -d '{ "update": "parameters" }' \
-https://api.powerbi.com/v1.0/myorg/groups/GROUP_ID/datasets/DATASET_ID/refreshes
       
