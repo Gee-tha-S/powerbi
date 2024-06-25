@@ -21,8 +21,13 @@ jobs:
         run: |
            pip install requests
            python -m pip install --upgrade pip
+           pip install -r requirements.txt
            pip install pandas
-                  
+           
+      - name: Debug json file
+        run: |
+          cat code-scanning.json
+        
       - name: Run script to csv conversion
         run: python main.py
         
