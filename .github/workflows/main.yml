@@ -30,13 +30,5 @@ jobs:
       - name: Run script to csv conversion
         run: python main.py
         
-      - name: Commit and push csv file
-        run: |
-          git config --global user.name 'Gee-tha-S'
-          git config --global user.email 'github-actions[bot]@users.geethasrinivasan2000@gmail.com'
-          git add code-scanning.csv
-          git commit -m 'Add generated code-scanning.csv'
-          git push
-        env:
-          TOKEN: ${{ secrets.TOKEN}}
+    
       
