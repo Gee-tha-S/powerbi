@@ -1,7 +1,6 @@
 name: Cleanup Workflow Runs
  
 on:
-  schedule:
   workflow_dispatch: # Allows manual trigger
  
 jobs:
