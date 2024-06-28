@@ -19,6 +19,6 @@ jobs:
         WORKFLOW_ID: 'main.yml'
         NUM_KEEP: 10
       run: |
-        curl -s -H "Authorization: token $GH_TOKEN" \"https://api.github.com/repos/$OWNER/$REPO/actions/workflows/$WORKFLOW_ID/runs?per_page=100" \
+        curl -s -H "Authorization: token $GH_TOKEN" \ "https://api.github.com/repos/$OWNER/$REPO/actions/workflows/$WORKFLOW_ID/runs?per_page=100" \
              | jq -r '.workflow_runs | .[] | select(.status == "completed") | .id' \
              | tail -n +$((NUM_KEEP + 1)) \ | xargs -I {} curl -s -X DELETE -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$OWNER/$REPO/actions/runs/{}"
