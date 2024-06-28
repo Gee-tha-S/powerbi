@@ -14,10 +14,10 @@ jobs:
  
     - name: Delete old workflow runs
       env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ secrets.TOKEN}}
         OWNER: ${{ github.repository_owner }}
-REPO: ${{ github.event.repository.name }}
-        WORKFLOW_ID:'main.yml' # Update this with your workflow file name (e.g., main.yml or your-workflow-file.yml)
+        REPO: ${{ github.event.repository.name }}
+        WORKFLOW_ID: 'main.yml'
         NUM_KEEP: 10
       run: |
         curl -s -H "Authorization: token $GH_TOKEN" \
