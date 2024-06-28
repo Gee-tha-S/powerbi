@@ -1,0 +1,27 @@
+name: Cleanup Workflow Runs
+ 
+on:
+  schedule:
+  workflow_dispatch: # Allows manual trigger
+ 
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+ 
+    - name: Delete old workflow runs
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        OWNER: ${{ github.repository_owner }}
+REPO: ${{ github.event.repository.name }}
+        WORKFLOW_ID:'main.yml' # Update this with your workflow file name (e.g., main.yml or your-workflow-file.yml)
+        NUM_KEEP: 10
+      run: |
+        curl -s -H "Authorization: token $GH_TOKEN" \
+"https://api.github.com/repos/$OWNER/$REPO/actions/workflows/$WORKFLOW_ID/runs?per_page=100" \
+             | jq -r '.workflow_runs | .[] | select(.status == "completed") | .id' \
+             | tail -n +$((NUM_KEEP + 1)) \
+| xargs -I {} curl -s -X DELETE -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/$OWNER/$REPO/actions/runs/{}"
